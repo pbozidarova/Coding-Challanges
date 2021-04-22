@@ -2,10 +2,10 @@ package javaBrains;
 
 public class IntegerToRoman {
     public static void main(String[] args) {
-        System.out.println(romanToInt(104));
+        System.out.println(intToRoman(104));
     }
 
-    public static String romanToInt(int num){
+    public static String intToRoman(int num){
         String romanNumber = "";
 
         String[] thousands = {"", "M", "MM", "MMM"};
