@@ -8,8 +8,8 @@ public class ReverseInteger {
         System.out.println(reverse(number));
     }
 
-    private static int reverse(int number){
-        int reversed = 0;
+    private static long reverse(int number){
+        long reversed = 0;
         while ( number > 0 ){
             reversed = reversed * 10 + number % 10;
             number /= 10;
