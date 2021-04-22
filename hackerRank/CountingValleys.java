@@ -31,13 +31,20 @@ public class CountingValleys {
         // Write your code here
         int valleys = 0;
         int sum = 0;
-        Map<Character, Integer> hikerPath = new HashMap<>();
-        hikerPath.put('U', 1);
-        hikerPath.put('D', -1);
+//        Map<Character, Integer> hikerPath = new HashMap<>();
+//        hikerPath.put('U', 1);
+//        hikerPath.put('D', -1);
+//
+//        for (int i = 0; i < steps; i++) {
+//            if(sum == 0 && path.toCharArray()[i] == 'U') valleys++;
+//            sum += hikerPath.get(path.toCharArray()[i]);
+//        }
 
-        for (int i = 0; i < steps; i++) {
-            if(sum == 0 && path.toCharArray()[i] == 'D') valleys++;
-            sum += hikerPath.get(path.toCharArray()[i]);
+        for(char c : path.toCharArray()){
+            if(c == 'U') sum++;
+            if(c == 'D') sum--;
+            if(sum == 0 && c == 'U') ++valleys;
+
         }
 
         return valleys;
