@@ -27,9 +27,7 @@ public class RomanToInteger {
             }else {
                 resultInt += map.get(romanNum.charAt(i));
             }
-
         }
-        
         return resultInt;
     }
 
