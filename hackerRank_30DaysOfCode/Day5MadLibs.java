@@ -3,7 +3,7 @@ package hackerRank_30DaysOfCode;
 import java.util.Random;
 import java.util.Scanner;
 
-public class MadLibs {
+public class Day5MadLibs {
 
     Scanner scanner = new Scanner(System.in);
     String story;
@@ -182,7 +182,7 @@ public class MadLibs {
     }
 
     public static void main(String[] args) {
-        MadLibs game = new MadLibs();
+        Day5MadLibs game = new Day5MadLibs();
         game.printInstructions();
         game.play();
 
