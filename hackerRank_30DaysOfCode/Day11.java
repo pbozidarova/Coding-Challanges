@@ -3,6 +3,13 @@ package hackerRank_30DaysOfCode;
 import java.util.Scanner;
 
 public class Day11 {
+//  Given a 6 x 6 2D Array, A :
+//  We define an hourglass in A to be a subset of values with indices falling in this pattern in A's graphical representation:
+//  a b c
+//    d
+//  e f g
+//  There are 16 hourglasses in A, and an hourglass sum is the sum of an hourglass' values.
+//  Calculate the hourglass sum for every hourglass in A, then print the maximum hourglass sum.
 
     private static final Scanner scanner = new Scanner(System.in);
 
