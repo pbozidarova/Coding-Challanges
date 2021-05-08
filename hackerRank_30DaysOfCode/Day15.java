@@ -15,7 +15,7 @@ class Day15 {
 
     public static Node insert(Node head,int data) {
         //Complete this method
-        
+        return head;
     }
 
     public static void display(Node head) {
