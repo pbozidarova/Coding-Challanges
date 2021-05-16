@@ -14,7 +14,7 @@ public class Day22 {
             heightRight = getHeight(root.right) + 1;
         }
 
-        return (heightLeft > heightRight ? heightLeft : heightRight);
+        return (Math.max(heightLeft, heightRight));
     }
 
     public static NodeDay22 insert(NodeDay22 root, int data) {
