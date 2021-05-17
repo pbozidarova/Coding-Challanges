@@ -36,15 +36,15 @@ public class Day23TicTacToe {
             System.out.println();
 
             //Let's play!
-            while (!game.gameOver().equals("notOver")){
+            while(game.gameOver().equals("notOver")){
                 if(game.currentMarker == game.userMarker){
                     //USER TURN
                     System.out.println("It's your turn! Enter a spot for your token");
                     int spot = scanner.nextInt();
 
-                    while (game.playTurn(spot)){
+                    while (!game.playTurn(spot)){
                         System.out.println("Try again. " + spot + " is invalid." +
-                                " This sport is already taken or it is out of range.");
+                                " This spot is already taken or it is out of range.");
                         spot = scanner.nextInt();
                     }
 
@@ -58,11 +58,12 @@ public class Day23TicTacToe {
                 }
 
                 //Print out new board
-                System.out.println();
                 game.printBoard();
+                System.out.println();
             }
             System.out.println(game.gameOver());
             System.out.println();
+
             System.out.println( "Do you want to play again? Enter Y if you do!" +
                     "Enter anything else if you are tired of me!");
             char response = scanner.next().charAt(0);
@@ -140,7 +141,7 @@ class TicTacToe{
         for (int i = 0; i < board.length; i++) {
             if(i % 3 == 0 && i !=0){
                 System.out.println();
-                System.out.println("---".repeat(20));
+                System.out.println("---".repeat(10));
             }
             System.out.print(" | " + board[i]);
         }
@@ -152,26 +153,26 @@ class TicTacToe{
         for (int i = 0; i < board.length; i++) {
             if(i % 3 == 0 && i !=0){
                 System.out.println();
-                System.out.println("---".repeat(20));
+                System.out.println("---".repeat(10));
             }
-            System.out.println(" | " + i + 1);
+            System.out.print(" | " + (i + 1));
         }
         System.out.println();
     }
 
     public boolean isThereAWinner(){
-        boolean diagonalsAndMiddles = rightDi() ||
+        boolean diagonalsAndMiddles = (rightDi() ||
                 leftDi() ||
                 middleRow() ||
-                secondCol() &&
+                secondCol()) &&
                 board[4] != '-';
 
-        boolean topAndFirst = topRow() ||
-                firstCol() &&
+        boolean topAndFirst = (topRow() ||
+                firstCol()) &&
                 board[0] != '-';
 
-        boolean bottomAndThird = bottomRow() ||
-                thirdCol() ||
+        boolean bottomAndThird = (bottomRow() ||
+                thirdCol()) &&
                 board[8] != '-';
 
         if(diagonalsAndMiddles){
@@ -181,6 +182,7 @@ class TicTacToe{
         }else if(bottomAndThird){
             this.winner = board[8];
         }
+
         return diagonalsAndMiddles || topAndFirst || bottomAndThird;
     }
 
@@ -201,7 +203,7 @@ class TicTacToe{
     }
 
     public boolean secondCol(){
-        return board[1] == board[4] && board[4] == board[7];
+        return board[1]  == board[4] && board[4] == board[7];
     }
 
     public boolean thirdCol(){
@@ -232,6 +234,7 @@ class TicTacToe{
         }else if(isTheBoardFilled()){
             return "Draw: Game Over";
         }
+
         return "notOver";
     }
 }
