@@ -7,26 +7,51 @@ import java.util.*;
 
 public class Day24HangmanApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         Scanner scanner = new Scanner(System.in);
-        Hangman game = new Hangman();
 
         System.out.println("Welcome to hangman! I will pick a word and you will try to guess it! " +
-                "If you guess wrong 6 times, then I win. If you can guess it before then you win. " +
-                "Are you ready? I hope so, because I am!");
+                "\nIf you guess wrong 6 times, then I win. If you can guess it before then you win. " +
+                "\nAre you ready? I hope so, because I am!");
         System.out.println();
-        System.out.println("I have picked my word below. Below is a picture, and below that is your current guess " +
-                "which starts off as nothing. Every time you guess incorrectly, I add a body part to the picture. " +
-                "When there is a full person, you lose.");
+        System.out.println("I have picked my word below. \nBelow is a picture, and below that is your current guess " +
+                "which starts off as nothing. \nEvery time you guess incorrectly, I add a body part to the picture. " +
+                "\nWhen there is a full person, you lose.");
 
         boolean doYouWantToPlay = true;
         while (doYouWantToPlay){
             //keep playing
-            System.out.println();
-            while(!game.gameOver()){
-                //Playing the game
-            }
+            System.out.println("Alright! Let's play!");
+            Hangman game = new Hangman();
+
+            //Playing the game
+            do{
+                //Draw the things
+                System.out.println();
+                System.out.println(game.drawPicture());
+                System.out.println();
+                System.out.println(game.getFormalCurrentGuess());
+                System.out.println(game.mysteryWord);
+                System.out.println();
+
+                //Get the guess
+                System.out.println("Enter a character that you think is in the word!");
+                char guess = scanner.next().toLowerCase().charAt(0);
+                System.out.println();
+                while (game.isGuessedAlready(guess)){
+                    System.out.println("Try again! You already guessed that character.");
+                    guess = scanner.next().toLowerCase().charAt(0);
+                }
+
+                //Play the guess
+                if(game.playGuess(guess)){
+                    System.out.println("Great guess! That character is in the word!");
+                }else {
+                    System.out.println("Unfortunately that character isn't in the word!");
+                }
+
+            } while(!game.gameOver());
 
             System.out.println();
             System.out.println("Do you want to play another game? " +
@@ -79,6 +104,10 @@ class Hangman{
     private void initializeStreams() {
         this.dictionary.addAll(
                 Arrays.asList(new String[]{"one", "two", "three", "four", "five", "siz", "seven", "eight", "nine", "ten"}));
+    }
+
+    public String getFormalCurrentGuess(){
+        return "Current Guess " + currentGuess.toString();
     }
 
     public String drawPicture(){
@@ -135,7 +164,7 @@ class Hangman{
                 "|        |\n" +
                 "|         \n" +
                 "|\n" +
-                "|\n";;
+                "|\n";
     }
 
     private String addOneArmDraw() {
@@ -146,7 +175,7 @@ class Hangman{
                 "|        |\n" +
                 "|       \n" +
                 "|\n" +
-                "|\n";;
+                "|\n";
     }
 
     private String addBodyDraw() {
@@ -174,7 +203,7 @@ class Hangman{
     private String noPersonDraw() {
 
         return " - - - - -\n"+
-                "|        \n"+
+                "|        |\n"+
                 "|        \n" +
                 "|        \n"+
                 "|        \n" +
@@ -184,8 +213,53 @@ class Hangman{
     }
 
     public boolean gameOver(){
-        return true;
+        System.out.println();
+        if (didWeWin()) {
+            System.out.println("Congrats! You won! You guessed the right word!");
+        }else if(didWeLose()){
+            System.out.println("Sorry, you lost! You spent all of your 6 tries." +
+                    "The word was " + mysteryWord + ".");
+        }
+
+        return didWeWin() || didWeLose();
+    }
+
+    private boolean didWeWin() {
+        String guess = getCondensedCurrentGuess();
+        return guess.equals(mysteryWord);
+    }
+
+    private String getCondensedCurrentGuess() {
+        String guess = currentGuess.toString();
+
+        return guess.replace(" ", "");
+    }
+
+    private boolean didWeLose() {
+        return currentTry >= maxTries;
     }
 
 
+
+    public boolean isGuessedAlready(char guess) {
+        return previousGuesses.contains(guess);
+    }
+
+    public boolean playGuess(char guess) {
+        boolean isItAGoodGuess = false;
+
+        for (int i = 0; i < mysteryWord.length(); i++) {
+            if(mysteryWord.charAt(i) == guess){
+                currentGuess.setCharAt(i * 2, guess);
+                isItAGoodGuess = true;
+                previousGuesses.add(guess);
+            }
+        }
+
+        if(!isItAGoodGuess){
+            currentTry++;
+        }
+
+        return isItAGoodGuess;
+    }
 }
